@@ -1,8 +1,9 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, calculateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 
 let productsHTML = "";
+updateCartQuantity();
 products.forEach(function (product, index) {
   productsHTML += `
     <div class="product-container">
@@ -63,11 +64,7 @@ products.forEach(function (product, index) {
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
 function updateCartQuantity() {
-  let cartQuantity = 0;
-  cart.forEach(function (cartItem) {
-    cartQuantity += cartItem.quantity;
-  });
-  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+  document.querySelector(".js-cart-quantity").innerHTML = calculateCartQuantity();
 }
 
 function getQuantitySelectorValue(productId) {
@@ -78,17 +75,17 @@ function getQuantitySelectorValue(productId) {
 }
 
 function addAddedMessage(productId) {
-  let addedMessage = document.querySelector(`.js-added-to-cart-${productId}`)
-  addedMessage.classList.add('added-to-cart-visible')
+  let addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
+  addedMessage.classList.add("added-to-cart-visible");
 
-  let previousTimeoutId = addedMessageTimeouts[productId]
-  if(previousTimeoutId){
-    clearTimeout(previousTimeoutId)
+  let previousTimeoutId = addedMessageTimeouts[productId];
+  if (previousTimeoutId) {
+    clearTimeout(previousTimeoutId);
   }
-  let timeoutId = setTimeout(function(){
-    addedMessage.classList.remove('added-to-cart-visible')
-  }, 2000)
-  addedMessageTimeouts[productId] = timeoutId
+  let timeoutId = setTimeout(function () {
+    addedMessage.classList.remove("added-to-cart-visible");
+  }, 2000);
+  addedMessageTimeouts[productId] = timeoutId;
 }
 // To store added message timeout for all products
 let addedMessageTimeouts = {};
