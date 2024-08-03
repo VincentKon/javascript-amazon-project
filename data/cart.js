@@ -26,3 +26,13 @@ export function addToCart(productId, quantity) {
     });
   }
 }
+
+export function removeFromCart(productId) {
+  const newCart = [];
+  cart.forEach(function (cartItem) {
+    if (cartItem.productId !== productId) {
+      newCart.push(cartItem);
+    }
+  });
+  cart = newCart;
+}
