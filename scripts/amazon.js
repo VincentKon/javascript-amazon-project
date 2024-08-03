@@ -1,3 +1,5 @@
+import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
 let productsHTML = "";
 products.forEach(function (product, index) {
   productsHTML += `
@@ -103,7 +105,6 @@ document.querySelectorAll(".js-add-to-cart").forEach(function (button) {
       console.log("restart");
       addedMessagetimeout = true;
     }
-
     setTimeout(function () {}, 2000);
   });
 });
